@@ -1,1 +1,3 @@
 .vscode
+groww_chatbot/groww_chatbot/__pycache__
+groww_chatbot/db.sqlite3
