@@ -27,6 +27,11 @@
               <div class="mb-3">
                   New to Groww? <a href="{% url 'register' %}">Regiter here</a>
               </div>
+              {% for message in messages %}
+              <div class="mb-3 alert alert-{{ message.tags }}" role="alert">
+                    {{message}}
+              </div>
+              {% endfor %}
               <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>
