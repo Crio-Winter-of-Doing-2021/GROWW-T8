@@ -56,6 +56,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'groww_chatbot.urls'
 
+# For setting user email as unique
+AUTHENTICATION_BACKENDS = [
+     'django.contrib.auth.backends.ModelBackend'
+]
 
 TEMPLATES = [
     {
