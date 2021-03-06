@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %} 
+<html>
+	<head>
+		<title>{{name}}</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<h1>{{name}}</h1>
+		<ul id="list"></ul>
+	</body>
+
+<script>
+	$(document).ready(function(){
+		$.ajax({
+			type: "GET",
+			url: '/api/{{type}}/{{name}}',
+			dataType: 'json',
+			success: function(response){
+				let feed = document.getElementById('list');
+				let id = document.createElement("li");
+				let name = document.createElement("li");
+				let price = document.createElement("li");
+				id.textContent = 'Id : '+response.id;
+				name.textContent = 'Name : '+response.name;
+				price.textContent = 'Price : '+response.price;
+				feed.appendChild(id);
+				feed.appendChild(name);
+				feed.appendChild(price);
+			}
+		});
+	});
+</script>
+
+</html>
