@@ -45,10 +45,8 @@ def loginuser(request):
                 login(request, user)
                 return redirect('home')
             else:
-                messages.error(request, "Wrong username or password")
-                # Username or password is incorrect
+                messages.warning(request, f"Wrong username or password")
                 print("Incorrect details")
-                pass
         return render(request, 'website/login.html')
     
 def logoutuser(request):
