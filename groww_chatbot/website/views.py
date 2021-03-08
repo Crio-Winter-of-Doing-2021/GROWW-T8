@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from django.contrib import messages
-
+from django.contrib.auth.models import User
 from orders.models import Product
 from orders.serializers import ProductSerializer
 
@@ -25,10 +25,9 @@ def registeruser(request):
             form = CreateUserForm(request.POST)
             if form.is_valid():
                 username = form.cleaned_data.get('username')
-                form.save()
+                userid = form.save()             
                 messages.success(request, f'Account created for {username}')
-                return redirect('login')
-        
+                return redirect('login')        
         context = {'form':form}
         return render(request, 'website/register.html', context)
 
@@ -96,3 +95,5 @@ class ProductListView(View):
 class ProductDetailsView(View):
     def get(self, request, type, name):
         return render(request,'website/product_details.html',{'type':type, 'name':name})
+
+# Adding Profile API
