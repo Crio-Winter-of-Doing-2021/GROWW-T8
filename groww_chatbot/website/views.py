@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from django.contrib import messages
 
+from accounts.models import Profile
 from orders.models import Product
 from orders.serializers import ProductSerializer
 
@@ -25,7 +26,8 @@ def registeruser(request):
             form = CreateUserForm(request.POST)
             if form.is_valid():
                 username = form.cleaned_data.get('username')
-                form.save()
+                usr = form.save()
+                Profile.objects.create(user=usr)
                 messages.success(request, f'Account created for {username}')
                 return redirect('login')
         
