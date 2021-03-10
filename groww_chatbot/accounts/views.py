@@ -43,3 +43,6 @@ class ProfileView(APIView):
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+class ProfileDetailView(View):
+    def get(self,request,id):
+        return render(request, 'accounts/profile.html',{'id':id})
