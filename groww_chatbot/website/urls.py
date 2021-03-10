@@ -1,5 +1,4 @@
 from django.urls import path,include
-from django.views.generic.base import View
 from . import views
 from accounts import views as account_views
 
