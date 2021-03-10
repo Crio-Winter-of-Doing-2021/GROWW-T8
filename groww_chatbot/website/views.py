@@ -13,6 +13,7 @@ from accounts.models import Profile
 from orders.models import Product
 from orders.serializers import ProductSerializer
 
+
 # Create your views here.
 def home(request):
     return render(request,'website/index.html')
