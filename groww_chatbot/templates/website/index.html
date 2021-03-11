@@ -12,6 +12,52 @@
             rel="stylesheet"
             integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
             crossorigin="anonymous">
+        <style>
+            body {
+                margin: auto;
+                width: 90%;
+                color: #44475B;
+                font-family: Roboto,system-ui;
+            }
+
+            .btn {
+                min-width: 180px;
+                min-height: 52px;
+                color: white;
+                background-color: #00D09C;
+                border: none;
+            }
+
+            .btn:hover{
+                background-color: #26D7AB;
+            }
+
+            button:focus {
+                border: none;
+                outline: none !important;
+            }
+
+            .nav-bar ul{
+                margin-bottom: 5px;
+            }
+
+            .nav-item{
+                display: inline;
+                padding: 0px 10px 0px 10px;
+                border-radius: 10px;
+                font-size: large;
+            }
+
+            .nav-item button{
+                border: none;
+                background: none;
+            }
+
+            .category {
+                display: none;
+                align-items: center;
+            }
+        </style>
     </head>
     <body>
         
@@ -28,22 +74,67 @@
                 </a>
                 {% else %}
                 <a href="{% url 'register' %}">             
-                    <button class="btn btn-success" type="submit">Login or Register</button>
+                    <button class="btn" type="submit">Login/Register</button>
                 </a>
                 {% endif %}
             </div>
         </nav>
 
-        
-        <div class="container">
+        <!-- <div class="nav-bar">
             <a href="/explore/stocks">Stocks</a>
             <a href="/explore/deposits">Fixed Deposits</a>
             <a href="/explore/mutual-funds">Mutual Funds</a>
             <a href="/explore/gold">Gold</a>
+        </div> -->
+        <div class="nav-bar">
+            <ul>
+                <li class="nav-item"><button id='stocks-nav' style="color:#00D09C" onclick="selectCategory(this)">Stocks</button></li>
+                <li class="nav-item"><button id='mutual-funds-nav' onclick="selectCategory(this)">Mutual Funds</button></li>
+                <li class="nav-item"><button id='gold-nav' onclick="selectCategory(this)">Gold</button></li>
+                <li class="nav-item"><button id='fd-nav' onclick="selectCategory(this)">FDs</button></li>
+            </ul>
         </div>
-
-        <div class="random">
-
+        <hr style="margin-top: 0px;">
+        <br><br>
+        <div class='category' id='stocks' style="display: flex;">
+            <span>
+                <img src="https://assets-netstorage.groww.in/website-assets/prod/1.4.4/build/client/images/stocks.74948e96.png" height="350px">
+            </span>
+            <span>
+                <h1>Zero account charges</h1>
+                <p>You don't have to pay a single rupee for opening a stocks account or account maintenance</p>
+                <a href="/explore/stocks"><button class="btn">Explore Stocks</button></a>
+            </span>
+        </div>
+        <div class='category' id='mutual-funds'>
+            <span>
+                <img src="https://assets-netstorage.groww.in/website-assets/prod/1.4.4/build/client/images/mf.6c2cde91.png" height="350px">
+            </span>
+            <span>
+                <h1>0% commision</h1>
+                <p>Select from 5000+ direct mutual funds and get higher return than regular funds.</p>
+                <a href="/explore/mutual-funds"><button class="btn">Explore Mutual Funds</button></a>
+            </span>
+        </div>
+        <div class='category' id='gold'>
+            <span>
+                <img src="https://assets-netstorage.groww.in/website-assets/prod/1.4.4/build/client/images/gold.4b4ed1a9.png" height="350px">
+            </span>
+            <span>
+                <h1>99.9% purity</h1>
+                <p>Invest in digital gold as low as ₹10 without any extra commission or making charges.</p>
+                <a href="/explore/gold"><button class="btn">Explore Gold</button></a>
+            </span>
+        </div>
+        <div class='category' id='fd'>
+            <span>
+                <img src="https://assets-netstorage.groww.in/website-assets/prod/1.4.4/build/client/images/fd.16c65ccc.png" height="350px">
+            </span>
+            <span>
+                <h1>6.7% interest rate</h1>
+                <p>Open fixed deposits in any bank with higher interest rates without opening a bank account</p>
+                <a href="/explore/deposits"><button class="btn">Explore FDs</button></a>
+            </span>
         </div>
 
 
@@ -57,4 +148,27 @@
             integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
             crossorigin="anonymous"></script>
     </body>
+
+    <script>
+        function selectCategory(e) {
+            let types = ['stocks','mutual-funds','gold','fd']
+            for(let i=0; i<types.length; i++) {
+                document.getElementById(types[i]).style.display = 'none';
+                document.getElementById(types[i]+'-nav').style.color = '#44475B';
+            }
+            e.style.color = '#00D09C';
+            switch(e.innerHTML) {
+                case 'Stocks' : document.getElementById('stocks').style.display = 'flex';
+                    break;
+                case 'Mutual Funds' : document.getElementById('mutual-funds').style.display = 'flex';
+                    break;
+                case 'Gold' : document.getElementById('gold').style.display = 'flex';
+                    break;
+                case 'FDs' : document.getElementById('fd').style.display = 'flex';
+                    break;
+                default:
+                    console.log("Invalid category!");
+            }
+        }
+    </script>
 </html>
