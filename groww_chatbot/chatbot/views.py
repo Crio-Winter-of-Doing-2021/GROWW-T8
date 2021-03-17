@@ -8,6 +8,7 @@ from chatterbot.ext.django_chatterbot import settings
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 
+"""Random Chatbot Ignore this commented lines"""
 # chatbot = ChatBot('Groww')
 
 # Create a new trainer for the chatbot
@@ -25,11 +26,13 @@ class ChatterBotApiView(View):
     """
     Provide an API endpoint to interact with ChatterBot.
     """
-
+    """
+    Training Only Once 
+    """
     chatterbot = ChatBot(**settings.CHATTERBOT)
-    trainer = ChatterBotCorpusTrainer(chatterbot)
-    trainer.train("chatterbot.corpus.english")        
-    trainer.train("chatterbot.corpus.english.greetings")        
+    # trainer = ChatterBotCorpusTrainer(chatterbot)
+    # trainer.train("chatterbot.corpus.english")        
+    # trainer.train("chatterbot.corpus.english.greetings")        
     
     def post(self, request, *args, **kwargs):
         """
