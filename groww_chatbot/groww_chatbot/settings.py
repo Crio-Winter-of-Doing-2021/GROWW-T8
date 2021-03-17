@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from chatterbot.trainers import ChatterBotCorpusTrainer
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'accounts',
     'chatbot',
+    'chatterbot.ext.django_chatterbot',
     'orders',
     'website',
     'crispy_forms',
@@ -54,6 +56,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CHATTERBOT = {
+    'name': 'Groww',
+    'django_app_name': 'django_chatterbot',
+    'logic_adapters': [
+        'chatterbot.logic.MathematicalEvaluation',
+        'chatterbot.logic.BestMatch',
+    ],
+
+}
+
 
 ROOT_URLCONF = 'groww_chatbot.urls'
 

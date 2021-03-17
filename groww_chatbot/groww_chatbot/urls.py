@@ -21,5 +21,6 @@ urlpatterns = [
     path('',include('website.urls')),
     path('orders/', include('orders.urls')),
     path('profile/',include('accounts.urls')),
-    path('api-auth/', include('rest_framework.urls')),
+    path('chatbot/',include('chatbot.urls')),
+    path('api-auth/', include('rest_framework.urls'))
 ]
