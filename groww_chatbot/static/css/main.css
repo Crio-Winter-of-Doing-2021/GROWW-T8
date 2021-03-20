@@ -1,0 +1,44 @@
+body {
+    margin: auto !important;
+    width: 90% !important; 
+    color: #44475B !important;
+    font-family: Roboto,system-ui !important;
+}
+
+.btn {
+    min-width: 180px;
+    min-height: 52px;
+    color: white !important;
+    background-color: #00D09C !important;
+    border: none;
+    border-radius: 10px;
+}
+
+.btn:hover{
+    background-color: #26D7AB !important;
+}
+
+button:focus {
+    border: none !important;
+    outline: none !important;
+}
+
+.nav-bar {
+    background-color: none;
+}
+
+.nav-bar ul{
+    margin-bottom: 5px;
+}
+
+.nav-item{
+    display: inline;
+    padding: 0px 10px 0px 10px;
+    border-radius: 10px;
+    font-size: large;
+}
+
+.nav-item button{
+    border: none;
+    background: none;
+}
