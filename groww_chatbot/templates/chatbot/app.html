@@ -101,36 +101,26 @@
       var $input = $('.js-text');
       var $sayButton = $('.js-say');
 
-      function createRow(text) {
-        var $row = $('<li class="list-group-item"></li>');
-
-        $row.text(text);
-        $chatlog.append($row);
-      }
+      var $rowTemplate = $('<li class="list-group-item"></li>');
 
       function submitInput() {
         var inputData = {
           'text': $input.val()
         }
 
-        // Display the user's input on the web page
-        createRow(inputData.text);
-
         var $submit = $.ajax({
-          type: 'POST',
+          type: "POST",
           url: chatterbotUrl,
-          data: JSON.stringify(inputData),
-          contentType: 'application/json'
+          data: inputData,
         });
 
         $submit.done(function(statement) {
-            createRow(statement.text);
+            var $row = $rowTemplate.clone();
 
-            // Clear the input field
+            $row.text(statement.text);
+            $chatlog.append($row);
+
             $input.val('');
-
-            // Scroll to the bottom of the chat interface
-            $chatlog[0].scrollTop = $chatlog[0].scrollHeight;
         });
 
         $submit.fail(function() {
@@ -148,6 +138,6 @@
           submitInput();
         }
       });
-    </script>
+    </script> 
   </body>
 </html>
