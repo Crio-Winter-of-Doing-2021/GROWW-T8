@@ -15,6 +15,7 @@
     background-image: url('groww.png');
     background-repeat: none;
     background-size: 80px 80px;
+    min-width: auto;
     width: 80px;
     height: 80px;  
     border-radius: 50%;
