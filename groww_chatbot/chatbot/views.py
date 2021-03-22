@@ -85,7 +85,6 @@ class ChatterBotApiView(View):
         * The JSON data should contain a 'text' attribute.
         """
         input_data = json.loads(request.body.decode('utf-8'))
-        print(input_data)
 
         if 'text' not in input_data:
             return JsonResponse({
@@ -97,7 +96,6 @@ class ChatterBotApiView(View):
         response = self.chatterbot.get_response(input_data)
 
         response_data = response.serialize()
-        print(response_data)
 
         return JsonResponse(response_data, status=200)
 

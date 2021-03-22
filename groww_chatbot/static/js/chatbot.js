@@ -7,7 +7,7 @@ $(function () {
         if (msg.trim() == "") {
             return false;
         }
-        generate_message(msg, "self");
+        get_message(msg, "self");
         var buttons = [
             {
                 name: "Existing User",
@@ -49,18 +49,7 @@ $(function () {
     // }
 
     function get_message(msg,type) {
-        var inputData = {
-            'text': msg
-        }
-
-        var $submit = $.ajax({
-            type: 'POST',
-            url: chatterbotUrl,
-            data: JSON.stringify(inputData),
-            contentType: 'application/json'
-        });
-
-        $submit.done(function(res) {
+        function add_message(msg){
             INDEX++;
             var str = "";
             str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
@@ -69,7 +58,7 @@ $(function () {
                 '            <img src="https://img.icons8.com/windows/32/000000/webcam-man.png"/>';
             str += "          </span>";
             str += '          <div class="cm-msg-text">';
-            str += res.text;
+            str += msg;
             str += "          </div>";
             str += "        </div>";
             $(".chat-logs").append(str);
@@ -82,11 +71,31 @@ $(function () {
             $(".chat-logs")
                 .stop()
                 .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
-        });
+        }
+        
+        if (type == 'self') {
+            add_message(msg);
+        }
+        else {
+            var inputData = {
+                'text': msg
+            }
 
-        $submit.fail(function() {
-            // TODO: Handle errors
-        });
+            var $submit = $.ajax({
+                type: 'POST',
+                url: chatterbotUrl,
+                data: JSON.stringify(inputData),
+                contentType: 'application/json'
+            });
+
+            $submit.done(function(res) {
+                add_message(res.text);
+            });
+
+            $submit.fail(function() {
+                // TODO: Handle errors
+            });
+        }
     }
 
     function generate_button_message(msg, buttons) {
