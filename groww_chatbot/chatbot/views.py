@@ -69,7 +69,15 @@ class ChatterBotApiView(View):
     # # train(chatterbot)
     # trainer = ChatterBotCorpusTrainer(chatterbot)
     # trainer.train("chatterbot.corpus.english")        
-    # trainer.train("chatterbot.corpus.english.greetings")        
+    # trainer.train("chatterbot.corpus.english.greetings")     
+    trainer = ListTrainer(chatterbot)
+    path = '/home/abhi/Abhi/Groww/GROWW-T8/Json Files/final.json'
+    with open(path,'r') as f:
+        data = json.load(f)
+        for category, values in data.items():
+            for question, answer in values.items():
+                trainer.train([question,answer])
+
     
     def post(self, request, *args, **kwargs):
         """
