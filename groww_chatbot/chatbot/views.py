@@ -71,7 +71,7 @@ class ChatterBotApiView(View):
     # trainer.train("chatterbot.corpus.english")        
     # trainer.train("chatterbot.corpus.english.greetings")     
     trainer = ListTrainer(chatterbot)
-    path = '/home/abhi/Abhi/Groww/GROWW-T8/Json Files/final.json'
+    path = '../Json Files/final.json'
     with open(path,'r') as f:
         data = json.load(f)
         for category, values in data.items():
