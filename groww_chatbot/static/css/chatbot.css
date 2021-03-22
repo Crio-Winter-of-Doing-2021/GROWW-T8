@@ -12,7 +12,9 @@
     position: fixed;
     bottom: 50px;
     right: 50px;
-    background: #5A5EB9;
+    background-image: url('groww.png');
+    background-repeat: none;
+    background-size: 80px 80px;
     width: 80px;
     height: 80px;  
     border-radius: 50%;
@@ -49,7 +51,7 @@
     position:fixed;
     right:30px;
     bottom:50px;  
-    width:350px;
+    width:450px;
     max-width: 85vw;
     max-height:100vh;
     border-radius:5px;  
@@ -62,7 +64,7 @@
     cursor:pointer;
   }
   .chat-box-header {
-    background: #5A5EB9;
+    background: #5368FF;
     height:70px;
     border-top-left-radius:5px;
     border-top-right-radius:5px; 
@@ -132,7 +134,7 @@
     box-shadow:none;
     border:none;
     border-radius:50%;
-    color:#5A5EB9;
+    color:#5368FF;
     width:35px;
     height:35px;  
   }
@@ -156,7 +158,7 @@
   
   .chat-logs::-webkit-scrollbar-thumb
   {
-      background-color: #5A5EB9;
+      background-color: #5368FF;
   }
   
   
@@ -198,7 +200,7 @@
   .chat-msg.self > .cm-msg-text {  
     float:right;
     margin-right:10px;
-    background: #5A5EB9;
+    background: #5368FF;
     color:white;
   }
   .cm-msg-button>ul>li {

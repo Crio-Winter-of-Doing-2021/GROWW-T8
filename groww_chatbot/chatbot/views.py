@@ -20,7 +20,7 @@ import requests
 
 
 class ChatterBotAppView(TemplateView):
-    template_name = 'chatbot/app.html'
+    template_name = 'chatbot/chatbot.html'
 
 # def train(chatterbot):
 #     data = json.loads(open("C:\\Users\\Pranjal\\Desktop\\Crio_Last\\GROWW-T8\\groww_chatbot\\chatbot\\mutualfund.json","r").read())
@@ -69,7 +69,15 @@ class ChatterBotApiView(View):
     # # train(chatterbot)
     # trainer = ChatterBotCorpusTrainer(chatterbot)
     # trainer.train("chatterbot.corpus.english")        
-    # trainer.train("chatterbot.corpus.english.greetings")        
+    # trainer.train("chatterbot.corpus.english.greetings")     
+    trainer = ListTrainer(chatterbot)
+    path = '../Json Files/final.json'
+    with open(path,'r') as f:
+        data = json.load(f)
+        for category, values in data.items():
+            for question, answer in values.items():
+                trainer.train([question,answer])
+
     
     def post(self, request, *args, **kwargs):
         """

@@ -1,3 +1,4 @@
+var chatterbotUrl = '{% url "chatterbot" %}';
 $(function () {
     var INDEX = 0;
     $("#chat-submit").click(function (e) {
@@ -6,7 +7,7 @@ $(function () {
         if (msg.trim() == "") {
             return false;
         }
-        generate_message(msg, "self");
+        get_message(msg, "self");
         var buttons = [
             {
                 name: "Existing User",
@@ -18,32 +19,83 @@ $(function () {
             },
         ];
         setTimeout(function () {
-            generate_message(msg, "user");
+            // generate_message(msg, "user");
+            get_message(msg,"user");
         }, 1000);
     });
 
-    function generate_message(msg, type) {
-        INDEX++;
-        var str = "";
-        str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
-        str += '          <span class="msg-avatar">';
-        str +=
-            '            <img src="https://img.icons8.com/windows/32/000000/webcam-man.png"/>';
-        str += "          </span>";
-        str += '          <div class="cm-msg-text">';
-        str += msg;
-        str += "          </div>";
-        str += "        </div>";
-        $(".chat-logs").append(str);
-        $("#cm-msg-" + INDEX)
-            .hide()
-            .fadeIn(300);
-        if (type == "self") {
-            $("#chat-input").val("");
+    // function generate_message(msg, type) {
+    //     INDEX++;
+    //     var str = "";
+    //     str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
+    //     str += '          <span class="msg-avatar">';
+    //     str +=
+    //         '            <img src="https://img.icons8.com/windows/32/000000/webcam-man.png"/>';
+    //     str += "          </span>";
+    //     str += '          <div class="cm-msg-text">';
+    //     str += msg;
+    //     str += "          </div>";
+    //     str += "        </div>";
+    //     $(".chat-logs").append(str);
+    //     $("#cm-msg-" + INDEX)
+    //         .hide()
+    //         .fadeIn(300);
+    //     if (type == "self") {
+    //         $("#chat-input").val("");
+    //     }
+    //     $(".chat-logs")
+    //         .stop()
+    //         .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
+    // }
+
+    function get_message(msg,type) {
+        function add_message(msg){
+            INDEX++;
+            var str = "";
+            str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
+            str += '          <span class="msg-avatar">';
+            str +=
+                '            <img src="https://img.icons8.com/windows/32/000000/webcam-man.png"/>';
+            str += "          </span>";
+            str += '          <div class="cm-msg-text">';
+            str += msg;
+            str += "          </div>";
+            str += "        </div>";
+            $(".chat-logs").append(str);
+            $("#cm-msg-" + INDEX)
+                .hide()
+                .fadeIn(300);
+            if (type == "self") {
+                $("#chat-input").val("");
+            }
+            $(".chat-logs")
+                .stop()
+                .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
         }
-        $(".chat-logs")
-            .stop()
-            .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
+        
+        if (type == 'self') {
+            add_message(msg);
+        }
+        else {
+            var inputData = {
+                'text': msg
+            }
+
+            var $submit = $.ajax({
+                type: 'POST',
+                url: chatterbotUrl,
+                data: JSON.stringify(inputData),
+                contentType: 'application/json'
+            });
+
+            $submit.done(function(res) {
+                add_message(res.text);
+            });
+
+            $submit.fail(function() {
+                // TODO: Handle errors
+            });
+        }
     }
 
     function generate_button_message(msg, buttons) {

@@ -17,11 +17,10 @@
     <div id="body">
         <div id="chat-circle" class="btn btn-raised">
             <div id="chat-overlay"></div>
-            <i class="material-icons">speaker_phone</i>
         </div>
         <div class="chat-box">
             <div class="chat-box-header">
-                ChatBot
+                Groww ChatBot
                 <span class="chat-box-toggle"><i class="material-icons">close</i></span>
             </div>
             <div class="chat-box-body">
@@ -46,5 +45,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"  ></script>
 
 </body>
+<script>
+    var chatterbotUrl = '{% url "chatterbot" %}';
+    var csrftoken = Cookies.get('csrftoken');
+
+      function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+</script>
 
 </html>
