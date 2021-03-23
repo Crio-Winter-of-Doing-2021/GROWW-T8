@@ -145,13 +145,13 @@ $(function () {
         $(".chat-logs")
             .stop()
             .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
-        $("#chat-input").attr("disabled", true);
+        // $("#chat-input").attr("disabled", true);
     }
 
     $(document).delegate(".chat-btn", "click", function () {
         var value = $(this).attr("chat-value");
         var name = $(this).html();
-        $("#chat-input").attr("disabled", false);
+        // $("#chat-input").attr("disabled", false);
         $(this).prop( "disabled", true );
         get_message(value, "self");
         get_message(value, "user");
