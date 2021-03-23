@@ -8,16 +8,6 @@ $(function () {
             return false;
         }
         get_message(msg, "self");
-        var buttons = [
-            {
-                name: "Existing User",
-                value: "existing",
-            },
-            {
-                name: "New User",
-                value: "new",
-            },
-        ];
         setTimeout(function () {
             // generate_message(msg, "user");
             get_message(msg,"user");
@@ -51,7 +41,7 @@ $(function () {
     function add_message(msg, type){
         INDEX++;
         var str = "";
-        str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
+        str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '" style="">';
         // str += '          <span class="msg-avatar">';
         // str +=
         //     '            <img src="https://img.icons8.com/windows/32/000000/webcam-man.png"/>';
@@ -61,6 +51,7 @@ $(function () {
         str += "          </div>";
         str += "        </div>";
         $(".chat-logs").append(str);
+        sessionStorage.setItem("logs", document.getElementById('chat-logs').innerHTML);
         $("#cm-msg-" + INDEX)
             .hide()
             .fadeIn(300);
@@ -145,13 +136,13 @@ $(function () {
         $(".chat-logs")
             .stop()
             .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
-        $("#chat-input").attr("disabled", true);
+        // $("#chat-input").attr("disabled", true);
     }
 
     $(document).delegate(".chat-btn", "click", function () {
         var value = $(this).attr("chat-value");
         var name = $(this).html();
-        $("#chat-input").attr("disabled", false);
+        // $("#chat-input").attr("disabled", false);
         $(this).prop( "disabled", true );
         get_message(value, "self");
         get_message(value, "user");
@@ -161,20 +152,26 @@ $(function () {
         $("#chat-circle").toggle("scale");
         $(".chat-box").toggle("scale");
         if ($(".chat-msg").length == 0) {
-            let msg = "Hey! How are you doing?\n I'm here to help you &#128516;"
-            add_message(msg, "user");
+            if (sessionStorage.getItem("logs")) {
+                // Restore the contents of the text field
+                document.getElementById('chat-logs').innerHTML = sessionStorage.getItem("logs");
+            }
+            else {
+                let msg = "Hey! How are you doing?\n I'm here to help you &#128516;"
+                add_message(msg, "user");
 
-            var buttons = [
-                {
-                    name: "Invest using a credit/debit card",
-                    value: "Can I invest using a credit/debit card?",
-                },
-                {
-                    name: "I need to add a bank account",
-                    value: "Why do I need to add a bank account?",
-                },
-            ];
-            generate_button_message(buttons);
+                var buttons = [
+                    {
+                        name: "Invest using a credit/debit card",
+                        value: "Can I invest using a credit/debit card?",
+                    },
+                    {
+                        name: "I need to add a bank account",
+                        value: "Why do I need to add a bank account?",
+                    },
+                ];
+                generate_button_message(buttons);
+            }
         }
     });
 
@@ -182,4 +179,6 @@ $(function () {
         $("#chat-circle").toggle("scale");
         $(".chat-box").toggle("scale");
     });
+
+
 });
