@@ -207,9 +207,19 @@
   .cm-msg-button>ul>li {
     list-style:none;
     float:left;
-    width:50%;
+    /* width:50%; */
+    padding: 2px;
+
   }
   .cm-msg-button {
       clear: both;
       margin-bottom: 70px;
+  }
+
+  .chat-btn {
+    font-size: x-small;
+    min-width: auto;
+    min-height: auto;
+    border-radius: 50px;
+    padding: 1px;
   }
