@@ -59,7 +59,7 @@ MIDDLEWARE = [
 
 CHATTERBOT = {
     'name': 'Groww',
-    'django_app_name': 'django',
+    'django_app_name': 'django_chatterbot',
     'logic_adapters': [
         'chatterbot.logic.MathematicalEvaluation',
         'chatterbot.logic.BestMatch',
