@@ -9,14 +9,6 @@ from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
 import requests
 
-"""Random Chatbot Ignore this commented lines"""
-# chatbot = ChatBot('Groww')
-
-# Create a new trainer for the chatbot
-# trainer = ChatterBotCorpusTrainer(chatbot)
-
-# # Train the chatbot based on the english corpus
-# trainer.train("chatterbot.corpus.english")
 
 
 class ChatterBotAppView(TemplateView):
@@ -70,13 +62,14 @@ class ChatterBotApiView(View):
     # trainer = ChatterBotCorpusTrainer(chatterbot)
     # trainer.train("chatterbot.corpus.english")        
     # trainer.train("chatterbot.corpus.english.greetings")     
-    trainer = ListTrainer(chatterbot)
-    path = '../Json Files/final.json'
-    with open(path,'r') as f:
-        data = json.load(f)
-        for category, values in data.items():
-            for question, answer in values.items():
-                trainer.train([question,answer])
+
+    # trainer = ListTrainer(chatterbot)
+    # path = '../Json Files/final.json'
+    # with open(path,'r') as f:
+    #     data = json.load(f)
+    #     for category, values in data.items():
+    #         for question, answer in values.items():
+    #             trainer.train([question,answer])
 
     
     def post(self, request, *args, **kwargs):
@@ -85,13 +78,16 @@ class ChatterBotApiView(View):
         * The JSON data should contain a 'text' attribute.
         """
         input_data = json.loads(request.body.decode('utf-8'))
-
+        print(input_data)
         if 'text' not in input_data:
             return JsonResponse({
                 'text': [
                     'The attribute "text" is required.'
                 ]
             }, status=400)
+
+        if 'stocks' in input_data['path']:
+            print("Yes Stocks")
 
         response = self.chatterbot.get_response(input_data)
 
