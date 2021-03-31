@@ -50,6 +50,8 @@ for i in ["External Funds","Groww Funds"]:
 trainer = ListTrainer(chatterbot)
 trainer.train(train)
 """
+buttons = []
+category = ['stocks','fd','mutual-fund','gold']
 class ChatterBotApiView(View):
     """
     Provide an API endpoint to interact with ChatterBot.
@@ -85,15 +87,28 @@ class ChatterBotApiView(View):
                     'The attribute "text" is required.'
                 ]
             }, status=400)
+        user = input_data['user']
+        if user == "":
+            print("Not logged in")
+        else:
+            haskyc = True
+            if(haskyc == True):
+                if category in input_data['path']:
+                    print(category)
+                    if(category=='stocks'):
+                        buttons = ['How to invest in stocks','What is the current stock price']
+                        print("Show stocks question")
+                print("KYC User")
+            else:
+                print("NON-KYC User")
 
         if 'stocks' in input_data['path']:
             print("Yes Stocks")
-
         response = self.chatterbot.get_response(input_data)
 
         response_data = response.serialize()
 
-        return JsonResponse(response_data, status=200)
+        return JsonResponse({response_data: response_data, buttons: buttons}, status=200)
 
     def get(self, request, *args, **kwargs):
         """
