@@ -151,7 +151,16 @@ $(function () {
             });
 
             $submit.done(function(res) {
-                add_message(res.text,type);
+                add_message(res.response_data['text'], type);
+                let buttons = [];
+                for(let i=0;i<res.buttons.length;i++){
+                    var obj = {
+                        name: res.buttons[i],
+                        value: res.buttons[i],
+                    }
+                    buttons.push(obj)
+                }
+                generate_button_message(buttons);
             });
 
             $submit.fail(function() {

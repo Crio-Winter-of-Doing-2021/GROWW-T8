@@ -108,7 +108,7 @@ class ChatterBotApiView(View):
 
         response_data = response.serialize()
 
-        return JsonResponse({response_data: response_data, buttons: buttons}, status=200)
+        return JsonResponse({'response_data': response_data, 'buttons':buttons},  status=200)
 
     def get(self, request, *args, **kwargs):
         """
