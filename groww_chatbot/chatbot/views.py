@@ -5,10 +5,9 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from chatterbot import ChatBot
 from chatterbot.ext.django_chatterbot import settings
-from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
 import requests
-
+from .models import FAQs
 
 
 class ChatterBotAppView(TemplateView):
@@ -50,7 +49,6 @@ for i in ["External Funds","Groww Funds"]:
 trainer = ListTrainer(chatterbot)
 trainer.train(train)
 """
-buttons = []
 category = ['stocks','fd','mutual-fund','gold']
 class ChatterBotApiView(View):
     """
@@ -59,6 +57,7 @@ class ChatterBotApiView(View):
     """
     Training Only Once 
     """
+    buttons = []
     chatterbot = ChatBot(**settings.CHATTERBOT)
     # # train(chatterbot)
     # trainer = ChatterBotCorpusTrainer(chatterbot)
@@ -80,6 +79,8 @@ class ChatterBotApiView(View):
         * The JSON data should contain a 'text' attribute.
         """
         input_data = json.loads(request.body.decode('utf-8'))
+        path = input_data['path']
+        user = input_data['user']
         print(input_data)
         if 'text' not in input_data:
             return JsonResponse({
@@ -87,23 +88,22 @@ class ChatterBotApiView(View):
                     'The attribute "text" is required.'
                 ]
             }, status=400)
-        user = input_data['user']
-        if user == "":
-            print("Not logged in")
+        if user == "AnonymousUser":
+            if "/" in path:
+                print("Home Page")
+                buttons = ['Stocks','Mutual Fund','FD','GOLD','Account']
+            if "stocks" in path:
+                print("Stocks Page")
+                buttons = ['How to invest in stocks?','My issue is not listed','Something else']
         else:
             haskyc = True
-            if(haskyc == True):
-                if category in input_data['path']:
-                    print(category)
-                    if(category=='stocks'):
-                        buttons = ['How to invest in stocks','What is the current stock price']
-                        print("Show stocks question")
-                print("KYC User")
-            else:
-                print("NON-KYC User")
+            if "/" in path:
+                print("Home Page")
+                buttons = ['Stocks','Mutual Fund','FD','GOLD','Account']
+            if "stocks" in path:
+                print("Stocks Page")
+                buttons = ['How to invest in stocks?','My issue is not listed','Something else']
 
-        if 'stocks' in input_data['path']:
-            print("Yes Stocks")
         response = self.chatterbot.get_response(input_data)
 
         response_data = response.serialize()
