@@ -61,8 +61,18 @@ CHATTERBOT = {
     'name': 'Groww',
     'django_app_name': 'django_chatterbot',
     'logic_adapters': [
-        'chatterbot.logic.MathematicalEvaluation',
-        'chatterbot.logic.BestMatch',
+        {
+            'import_path': 'chatterbot.logic.SpecificResponseAdapter',
+            'input_text': 'I have a question',
+            'output_text': 'Sure, you can ask me anything!'
+        },
+        {
+            # 'import_path' : 'chatterbot.logic.MathematicalEvaluation',
+            'import_path' : 'chatterbot.logic.BestMatch',
+            "statement_comparison_function": 'chatterbot.comparisons.levenshtein_distance',
+            'default_response': 'I am sorry, I did not understand your question &#128532; <br>Please refer FAQs : <a href="https://groww.in/help" target="_blank">Click Here</a>',
+            'maximum_similarity_threshold': 0.80
+        }
     ],
 }
 

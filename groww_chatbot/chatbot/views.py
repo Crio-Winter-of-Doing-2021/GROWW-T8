@@ -65,13 +65,15 @@ class ChatterBotApiView(View):
     # trainer.train("chatterbot.corpus.english")        
     # trainer.train("chatterbot.corpus.english.greetings")     
 
-    # trainer = ListTrainer(chatterbot)
-    # path = '../Json Files/final.json'
-    # with open(path,'r') as f:
-    #     data = json.load(f)
-    #     for category, values in data.items():
-    #         for question, answer in values.items():
-    #             trainer.train([question,answer])
+    trainer = ListTrainer(chatterbot)
+    path = '../Json Files/final.json'
+    with open(path,'r') as f:
+        data = json.load(f)
+        for category, values in data.items():
+            for question, answer in values.items():
+                trainer.train([question,answer])
+    trainer.train(['I have a question',"I'm here to help, you can ask me anything!"])
+    trainer.train(['Thanks',"I'm glad I could help &#128516;"])
 
     
     def post(self, request, *args, **kwargs):

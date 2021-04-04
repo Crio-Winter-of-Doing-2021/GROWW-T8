@@ -1,4 +1,5 @@
 import json
+import random
 
 def getPath(url):
 	path = []
@@ -10,7 +11,7 @@ def getPath(url):
 	return path
 
 def getQuestions(url):
-	json_path = '../Json Files/final.json'
+	json_path = '../Json Files/train.json'
 	print(url)
 	path = getPath(url)
 	print(path)
@@ -23,7 +24,9 @@ def getQuestions(url):
 	questions = []
 	with open(json_path,'r') as f:
 		data = json.load(f)
-		for question,answer in list(data[temp.category].items())[:4]:
+		l = list(data.get(temp.category,{}).items())
+		random.shuffle(l)
+		for question,answer in l[:4]:
 			questions.append(question)
 	print(questions)
 	return questions
