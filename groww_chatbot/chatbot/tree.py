@@ -1,3 +1,5 @@
+import json
+
 def getPath(url):
 	path = []
 	l = url.split('/')[1:]
@@ -8,6 +10,7 @@ def getPath(url):
 	return path
 
 def getQuestions(url):
+	json_path = '../Json Files/final.json'
 	print(url)
 	path = getPath(url)
 	print(path)
@@ -17,11 +20,18 @@ def getQuestions(url):
 			temp = temp.children[next]
 		else:
 			break
+	questions = []
+	with open(json_path,'r') as f:
+		data = json.load(f)
+		for question,answer in list(data[temp.category].items())[:4]:
+			questions.append(question)
+	print(questions)
+	return questions
 	
 
 class Node:
 	def __init__(self,catergory,children):
-		self.catergory = catergory
+		self.category = catergory
 		self.children = children
 	
 	def add_children(self,children):
@@ -33,9 +43,9 @@ root = Node('root',{})
 stocks = Node('stocks',{})
 fd = Node('fd',{})
 mutual_funds = Node('mutual-funds',{})
-gold = Node('mutual-funds',{})
+gold = Node('gold',{})
 profile = Node('profile',{})
-orders = Node('profile',{})
+orders = Node('orders',{})
 
 root.children['stocks'] = stocks
 root.children['fd'] = fd

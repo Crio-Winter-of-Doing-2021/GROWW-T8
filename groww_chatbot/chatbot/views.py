@@ -90,18 +90,18 @@ class ChatterBotApiView(View):
                 ]
             }, status=400)
         
-        getQuestions(path)
-        if user == "AnonymousUser":
-            pass
-        else:
-            pass
+        buttons = getQuestions(path)
+        # if user == "AnonymousUser":
+        #     pass
+        # else:
+        #     pass
 
         response = self.chatterbot.get_response(input_data)
 
         response_data = response.serialize()
 
-        # return JsonResponse({'response_data': response_data, 'buttons':buttons},  status=200)
-        return JsonResponse({'response_data': response_data},  status=200)
+        return JsonResponse({'response_data': response_data, 'buttons':buttons},  status=200)
+        # return JsonResponse({'response_data': response_data},  status=200)
 
     def get(self, request, *args, **kwargs):
         """
