@@ -82,10 +82,17 @@
     "orders":{
         "My order is still not completed. ": "It usually takes 3-4 bank working days for a mutual fund order to complete.\n\nIn case of liquid funds, it takes 1-2 bank working days.\n\nIf it has already been more than 3-4 working days, you can raise a ticket.\n\nPlease go to 'MY ORDERS', select the incomplete order, and select 'Need Help'.\n\nAmong the questions visible, choose the appropriate question.\n\nIf none of the questions resolve your issue, you can raise a ticket.",
         "My fixed deposit order failed. When will I get the refund?": "You will receive the refund amount in your bank account within 5-7 working days.",
-        "Can I invest using a credit/debit card?": "No, it is not possible to invest using credit/debit card on Groww.\n\nSEBI rules say the investments should be made through verified bank accounts\nonly. It is not possible to verify bank accounts when investments are made\nusing a credit/debit card.\n\nYou can use the following options:\n\n1\\. UPI apps (Google Pay, PhonePe, BHIM, etc)  \n2\\. Net banking  \n3\\. NEFT/RTGS/IMPS",
         "How much time does it take to open a fixed deposit?": "Opening a fixed deposit is subject to KYC verification. \n\nUsually, it gets verified the same day as the payment or the next working day.",
         "My NFO order is not yet completed.": "NFO investment usually takes a lot more time than normal mutual funds. After\nan NFO closes, your unit will be allocated in about 7 working days. Keep in\nmind, the unit allocation takes place after the NFO closes and not from the\ndate you made an investment. Check the closing date for the NFO you invested\nin to get an idea of when your unit allocation will take place. If you still\nthink it is taking too long, please contact us. We'll resolve this as soon as\npossible.",
         "Can I cancel my Digital Gold purchase?": "Once an order has been placed successfully, it cannot be cancelled.",
         "What is the charge for buy order (delivery)?": "Groww gives you the best stock investing experience at a low charge. \n\nSTT Charges: 0.1% \nExchange Transaction Charges: 0.00325% (NSE) or 0.003% (BSE) \nSEBI Turnover Charges: 0.00005% \nStamp Duty: 0.015% \nBrokerage: Rs 20 or 0.05% per order (whichever is lower) \n\nTry our brokerage calculator to understand charges better. Press the button below to know more about our pricing."
+    },
+    "root":{
+        "Can I invest using a credit/debit card?": "No, it is not possible to invest using credit/debit card on Groww.\n\nSEBI rules say the investments should be made through verified bank accounts\nonly. It is not possible to verify bank accounts when investments are made\nusing a credit/debit card.\n\nYou can use the following options:\n\n1\\. UPI apps (Google Pay, PhonePe, BHIM, etc)  \n2\\. Net banking  \n3\\. NEFT/RTGS/IMPS",
+        "Is Groww referral valid on the app only?": "Yes. You can refer people only over the app. If your friend signs up and\ninvests using the website, the referral won't be successful.",
+        "What is the eligibility to get Groww referral reward?": "Here are the eligibility criteria: -Your own Groww account should be fully\nupdated - including bank details -Your friend must use the link shared by you\nto sign up -Your friend must use the app, not the website to sign up and\ninvest -Your friend must invest Rs 2000 or more",
+        "What payment methods are supported on Groww?": "1\\. UPI apps (Google Pay, PhonePe, BHIM, etc)  \n2\\. Net banking  \n3\\. NEFT/RTGS/IMPS",
+        "I am unable to login to Groww.": "Please raise a ticket. We will help you with this matter."
+
     }
 }
