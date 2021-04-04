@@ -252,6 +252,9 @@ $(function () {
                 generate_button_message(buttons);
             }
         }
+        $(".chat-logs")
+            .stop()
+            .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 200);
     });
 
     $(".chat-box-toggle").click(function () {

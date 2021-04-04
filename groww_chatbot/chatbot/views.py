@@ -8,6 +8,7 @@ from chatterbot.ext.django_chatterbot import settings
 from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
 import requests
 from .models import FAQs
+from .tree import getQuestions
 
 
 class ChatterBotAppView(TemplateView):
@@ -88,27 +89,19 @@ class ChatterBotApiView(View):
                     'The attribute "text" is required.'
                 ]
             }, status=400)
+        
+        getQuestions(path)
         if user == "AnonymousUser":
-            if "/" in path:
-                print("Home Page")
-                buttons = ['Stocks','Mutual Fund','FD','GOLD','Account']
-            if "stocks" in path:
-                print("Stocks Page")
-                buttons = ['How to invest in stocks?','My issue is not listed','Something else']
+            pass
         else:
-            haskyc = True
-            if "/" in path:
-                print("Home Page")
-                buttons = ['Stocks','Mutual Fund','FD','GOLD','Account']
-            if "stocks" in path:
-                print("Stocks Page")
-                buttons = ['How to invest in stocks?','My issue is not listed','Something else']
+            pass
 
         response = self.chatterbot.get_response(input_data)
 
         response_data = response.serialize()
 
-        return JsonResponse({'response_data': response_data, 'buttons':buttons},  status=200)
+        # return JsonResponse({'response_data': response_data, 'buttons':buttons},  status=200)
+        return JsonResponse({'response_data': response_data},  status=200)
 
     def get(self, request, *args, **kwargs):
         """
