@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
+from chatterbot.trainers import ChatterBotCorpusTrainer
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,6 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'accounts',
+    'chatbot',
+    'chatterbot.ext.django_chatterbot',
+    'orders',
+    'website',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -49,12 +57,37 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CHATTERBOT = {
+    'name': 'Groww',
+    'django_app_name': 'django_chatterbot',
+    'logic_adapters': [
+        {
+            'import_path': 'chatterbot.logic.SpecificResponseAdapter',
+            'input_text': 'I have a question',
+            'output_text': 'Sure, you can ask me anything!'
+        },
+        {
+            # 'import_path' : 'chatterbot.logic.MathematicalEvaluation',
+            'import_path' : 'chatterbot.logic.BestMatch',
+            "statement_comparison_function": 'chatterbot.comparisons.levenshtein_distance',
+            'default_response': 'I am sorry, I did not understand your question &#128532; <br>Please refer FAQs : <a href="https://groww.in/help" target="_blank">Click Here</a>',
+            'maximum_similarity_threshold': 0.80
+        }
+    ],
+}
+
+
 ROOT_URLCONF = 'groww_chatbot.urls'
+
+# For setting user email as unique
+AUTHENTICATION_BACKENDS = [
+     'django.contrib.auth.backends.ModelBackend'
+]
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,6 +99,14 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 WSGI_APPLICATION = 'groww_chatbot.wsgi.application'
 
@@ -118,3 +159,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS  = [
+    os.path.join(BASE_DIR,'static')
+]
+
+CRISPY_TEMPLATE_PACK  = 'bootstrap4'

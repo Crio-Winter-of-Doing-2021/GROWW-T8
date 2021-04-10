@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %} 
+<html>
+	<head>
+		<title>Orders</title>
+		<script src="{% static 'js/jquery.js' %}"></script>
+	</head>
+	<body>
+		<h1>Your Orders</h1>
+		<ul id="list"></ul>
+	</body>
+
+<script>
+	$(document).ready(function(){
+		console.log('here');
+		$.ajax({
+			type: "GET",
+			url: 'api/orders/',
+			dataType: 'json',
+			success: function(response){
+				let feed = document.getElementById('list');
+				let item;
+				for (var i=0; i < response.length; i++){
+					item = response[i];
+					let link = document.createElement("a");
+					let list_item = document.createElement("li");
+					list_item.textContent = item.product;
+					link.href = item.id;
+					link.appendChild(list_item)
+					feed.appendChild(link);
+				}
+			}
+		});
+	});
+</script>
+{% include 'base.html' %}
+</html>

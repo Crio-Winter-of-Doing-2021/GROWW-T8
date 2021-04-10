@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %} 
+<html>
+	<head>
+		<title>Profile</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<h1>Profile </h1>
+		<ul id="profileid"></ul>
+	</body>
+
+<script>
+	$(document).ready(function(){
+		$.ajax({
+			type: "GET",
+			url: '/profile/api/{{id}}',
+			dataType: 'json',
+			success: function(response){
+				let profileid = document.getElementById('profileid');
+				let id = document.createElement('li');
+				let name = document.createElement("li");
+				let dob = document.createElement("li");
+				let kyc = document.createElement("li");
+				id.textContent = 'Id : '+response.id;
+				name.textContent = 'Name : '+response.name;
+				dob.textContent = 'DOB: : '+response.dob;
+				kyc.textContent = 'Kyc : '+response.kyc;
+				profileid.appendChild(id);
+				profileid.appendChild(name);
+				profileid.appendChild(dob);
+				profileid.appendChild(kyc);
+			}
+		});
+	});
+</script>
+{% include 'base.html' %}
+</html>

@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Groww</title>
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+            crossorigin="anonymous">
+        <style>
+            .category {
+                display: none;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="https://groww.in/logo-groww270.png" alt=""
+                        width="30" height="30" class="d-inline-block align-top">
+                    <b>Groww</b>
+                </a>
+                <a class="nav-link" href="/explore/stocks">Explore</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">
+                    <button class="btn btn-primary" type="submit">Logout</button>
+                </a>
+                {% else %}
+                <a href="{% url 'register' %}">             
+                    <button class="btn" type="submit">Login/Register</button>
+                </a>
+                {% endif %}
+            </div>
+        </nav>
+
+        <!-- <div class="nav-bar">
+            <a href="/explore/stocks">Stocks</a>
+            <a href="/explore/deposits">Fixed Deposits</a>
+            <a href="/explore/mutual-funds">Mutual Funds</a>
+            <a href="/explore/gold">Gold</a>
+        </div> -->
+        <div class="nav-bar">
+            <ul>
+                <li class="nav-item"><button id='stocks-nav' style="color:#00D09C" onclick="selectCategory(this)">Stocks</button></li>
+                <li class="nav-item"><button id='mutual-funds-nav' onclick="selectCategory(this)">Mutual Funds</button></li>
+                <li class="nav-item"><button id='gold-nav' onclick="selectCategory(this)">Gold</button></li>
+                <li class="nav-item"><button id='fd-nav' onclick="selectCategory(this)">FDs</button></li>
+            </ul>
+        </div>
+        <hr style="margin-top: 0px;">
+        <br><br>
+        <div class='category' id='stocks' style="display: flex;">
+            <span>
+                <img src="https://assets-netstorage.groww.in/website-assets/prod/1.4.4/build/client/images/stocks.74948e96.png" height="350px">
+            </span>
+            <span>
+                <h1>Zero account charges</h1>
+                <p>You don't have to pay a single rupee for opening a stocks account or account maintenance</p>
+                <a href="/explore/stocks"><button class="btn">Explore Stocks</button></a>
+            </span>
+        </div>
+        <div class='category' id='mutual-funds'>
+            <span>
+                <img src="https://assets-netstorage.groww.in/website-assets/prod/1.4.4/build/client/images/mf.6c2cde91.png" height="350px">
+            </span>
+            <span>
+                <h1>0% commision</h1>
+                <p>Select from 5000+ direct mutual funds and get higher return than regular funds.</p>
+                <a href="/explore/mutual-funds"><button class="btn">Explore Mutual Funds</button></a>
+            </span>
+        </div>
+        <div class='category' id='gold'>
+            <span>
+                <img src="https://assets-netstorage.groww.in/website-assets/prod/1.4.4/build/client/images/gold.4b4ed1a9.png" height="350px">
+            </span>
+            <span>
+                <h1>99.9% purity</h1>
+                <p>Invest in digital gold as low as ₹10 without any extra commission or making charges.</p>
+                <a href="/explore/gold"><button class="btn">Explore Gold</button></a>
+            </span>
+        </div>
+        <div class='category' id='fd'>
+            <span>
+                <img src="https://assets-netstorage.groww.in/website-assets/prod/1.4.4/build/client/images/fd.16c65ccc.png" height="350px">
+            </span>
+            <span>
+                <h1>6.7% interest rate</h1>
+                <p>Open fixed deposits in any bank with higher interest rates without opening a bank account</p>
+                <a href="/explore/deposits"><button class="btn">Explore FDs</button></a>
+            </span>
+        </div>
+
+
+        <!-- Footer goes here -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
+            integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
+            crossorigin="anonymous"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
+            integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
+            crossorigin="anonymous"></script>
+    </body>
+    {% include 'base.html' %}
+
+    <script>
+        function selectCategory(e) {
+            let types = ['stocks','mutual-funds','gold','fd']
+            for(let i=0; i<types.length; i++) {
+                document.getElementById(types[i]).style.display = 'none';
+                document.getElementById(types[i]+'-nav').style.color = '#44475B';
+            }
+            e.style.color = '#00D09C';
+            switch(e.innerHTML) {
+                case 'Stocks' : document.getElementById('stocks').style.display = 'flex';
+                    break;
+                case 'Mutual Funds' : document.getElementById('mutual-funds').style.display = 'flex';
+                    break;
+                case 'Gold' : document.getElementById('gold').style.display = 'flex';
+                    break;
+                case 'FDs' : document.getElementById('fd').style.display = 'flex';
+                    break;
+                default:
+                    console.log("Invalid category!");
+            }
+        }
+    </script>
+</html>

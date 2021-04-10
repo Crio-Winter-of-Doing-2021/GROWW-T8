@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %} 
+<html>
+	<head>
+		<title>Order Details</title>
+		<script src="{% static 'js/jquery.js' %}"></script>
+	</head>
+	<body>
+		<h1>Order Details</h1>
+		<ul id="list"></ul>
+	</body>
+
+<script>
+	$(document).ready(function(){
+		$.ajax({
+			type: "GET",
+			url: '/orders/api/{{id}}',
+			dataType: 'json',
+			success: function(response){
+				let feed = document.getElementById('list');
+				let id = document.createElement("li");
+				let quantity = document.createElement("li");
+				let price = document.createElement("li");
+				let timestamp = document.createElement("li");
+				let status = document.createElement("li");
+				let product = document.createElement("li");
+				id.textContent = 'Id : '+response.id;
+				quantity.textContent = 'Name : '+response.quantity;
+				price.textContent = 'Price : '+response.price;
+				timestamp.textContent = 'Timestamp : '+response.timestamp;
+				status.textContent = 'Status : '+response.status;
+				product.textContent = 'Product : '+response.product;
+				feed.appendChild(id);
+				feed.appendChild(price);
+				feed.appendChild(timestamp);
+				feed.appendChild(quantity);
+				feed.appendChild(status);
+				feed.appendChild(product);
+			}
+		});
+	});
+</script>
+{% include 'base.html' %}
+</html>
