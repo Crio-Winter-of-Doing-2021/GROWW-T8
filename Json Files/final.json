@@ -149,6 +149,15 @@
         "When will I get the money after selling stocks?": "As per SEBI guidelines, the money will get credited to your Groww Balance 2\nworking days after your transaction (T+2 days)."
     },
     "kyc":{
+        "How can I get my full KYC done?": "You can get your full KYC done by uploading the required documents. Your full\nKYC will be done along with your first investment. Tap on 'Upload Docs'.",
+        "How long will it take for my KYC to be done?": "You are investment ready! Your KYC will be processed within 1 working day\nafter your first investment. Explore all mutual funds and stocks using the\nbutton below.",
+        "How to change my name in Groww and KYC?": "You can send us an email using the button below. It will take 21 working days\nto complete the procedure. During this period, you will not be able to make\nfresh investments (purchase or redeem).",
+        "How to complete my account creation?": "You can complete your account creation by clicking the button below and\nfollowing the steps shown.",
+        "How to complete my account?": "You can complete your account creation by completing the necessary procedures.\nJust go to explore and follow direction.",
+        "Do you charge for processing KYC?": "No. We do not charge anything for processing your KYC. We do it for free along\nwith your first investment.",
+        "How long does it take to modify my KYC?": "Once you have submitted the documents, it takes around 2-3 weeks to modify\nyour KYC. This time to process is taken by the central KYC registry. If it has\nalready been 3 weeks since you submitted the documents, please contact us.",
+        "I don't have a PAN card. Can I invest?": "You cannot invest without a PAN card as per SEBI rules. Please get your PAN\ncard made to start investing.",
+        "I am an NRI. Can I invest through Groww. My NRI KYC is verified.": "Sorry. We do not support NRI investments as of now.",
         "How to track the KYC status of FD?": "Here's how to track the KYC status of your FD:\n\n- Press on \u2018MY ORDERS\u2019 button below\n- Select the fixed deposit for which you want to check the status\n\nYou will be able to view the order tracking screen, which will give you an update on your order status.\n",
         "Do I need to complete the KYC to buy Digital Gold on Groww?": "Yes. To be eligible for purchasing Digital Gold on Groww, you need to be a\nresident Indian with verified KYC.",
         "Why did my fixed deposit investment fail?": "Your fixed deposit investment may fail due to:\n\n-incorrect/mismatched data in the KYC documents submitted resulting in KYC rejection\n-payment issues while booking the fixed deposit\n\nPlease re-upload your documents or retry making the payment.\n\nIf this is a recurring issue, please raise a ticket. We'll resolve this issue as soon as possible. ",
