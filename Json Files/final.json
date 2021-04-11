@@ -1,5 +1,5 @@
 {
-    "account": {
+    "Account": {
         "Can I change which account my money is redeemed to?": "Your money is redeemed to your primary bank account. You can easily change the\nprimary bank account whenever you want to. You can see your banks by pressing\nthe 'BANK DETAILS' button below. Here's how to change your primary bank\naccount: 1) Tapping on the three dots next to the bank name 2) Tap on 'Make\nPrimary'",
         "Can I invest using a credit/debit card?": "No, it is not possible to invest using credit/debit card on Groww.\n\nSEBI rules say the investments should be made through verified bank accounts\nonly. It is not possible to verify bank accounts when investments are made\nusing a credit/debit card.\n\nYou can use the following options:\n\n1. UPI apps (Google Pay, PhonePe, BHIM, etc)  \n2. Net banking  \n3. NEFT/RTGS/IMPS",
         "How to add a bank account to Groww?": "You can do so by clicking the 'BANK DETAILS' button below.\n\nThen, tap on 'Add Another Bank' to add a new bank account.\n\nIf you already have another bank account added, you make it your primary\naccount. Here's how to:\n\n1) Tapping on the three dots next to the bank name  \n2) Tap on 'Make Primary'",
@@ -25,7 +25,7 @@
         "Where can I get the tax proof for section 80C?": "You can get this statement in the Reports section.\n\nPlease press the 'REPORTS' button below to go to the reports section.\u00a0",
         "Where can I get the transaction history?": "You can get this statement in the Reports section as 'Order History' under the Transactions box.\n\nPlease press the 'REPORTS' button below to go to the reports section.\u00a0"
     },
-    "fd": {
+    "FD": {
         "Are there any benefits of renewing Bajaj Finance FD?": "Yes. An additional rate of 0.10% p.a. (for deposit size up to \u20b95 Crore) is applicable on renewal.",
         "How to change my bank account details for Bajaj Finance FD?": "Unicorn Download the 'change of bank details form' by pressing the 'DOWNLOAD FORM' button below and submit it at your nearest branch. The list of branches is available on Bajaj Finance website.",
         "How will I receive Bajaj Finance - Fixed Deposit Receipt?": "Bajaj Finance will courier Fixed Deposit Receipt (FDR) certificate to your registered address within 3 weeks of opening the FD. ",
@@ -70,7 +70,7 @@
         "How to change my nominee in an FD?": "To change the nominee in case of FDs that are already started, you will have to contact the bank with whom you have an FD directly. ",
         "How to open a fixed deposit using Groww?": "- Tap on \u2018DEPOSITS\u2019 pressing the button below\n- Select the bank you want to open your fixed deposit with\n- Enter the amount you want to deposit\n- Make the payment via UPI/Net banking\n\nDone! Once verified by the bank, your fixed deposit will be updated in your Groww dashboard."
     },
-    "gold": {
+    "Gold": {
         "Can I request delivery of my gold?": "This is unavailable right now. But we're planning on bringing this soon.",
         "How is Digital Gold provided on Groww?": "To provide you pure and top-quality bullion, Groww has partnered with Augmont\nGold Pvt. Ltd.--an integrated precious metals management company.\n\nAll purchase/sell transactions of Digital Gold will be directly with Augmont\nGold Pvt Ltd. Augmont also has businesses in gold refining and manufacturing\nof tamper-proof packaged jewellery.",
         "What is purity of the gold offered by Augmont?": "Augmont offers 24-Karat gold of 999 purity (99.90% pure).",
@@ -101,7 +101,7 @@
         "What are the charges for gold?": "The live price is quoted on the basis of wholesale prices in the spot market.\n\nIt has certain margins added to it to provide for payment gateway charges,\nstorage, insurance, trustee and custodian charges.\n\nThe gold rate excludes taxes, making charges, and delivery charges. 3% GST is\napplicable while buying gold.",
         "What are the taxes involved in gold?": "The gold rates shown on Groww at the time of purchasing/selling is exclusive\nof taxes.\n\nHowever, tax on income from sale of gold is applicable."
     },
-    "mutual-funds": {
+    "Mutual Funds": {
         "How do I import my external mutual fund investments?": "1. Tap on the 'IMPORT' button below. 2. Now, tap on 'Connect with Google'.\n3. Choose the email ID in which you receive statements of your external\nmutual funds.  4. Continue on with the next steps. Give permission to Groww\nto read your email.  In 1-2 days, you will be able to see your external\ninvestments on the dashboard. Your imported investments will be updated every\n30 days.  Note: Groww does not have access to any of your emails except the\nones that come from donotreply@camsonline.com and samfS@kfintech.com.  Groww\ncan only read messages that are from CAMS and Karvy so as to be able to read\nthe mutual funds' statements.",
         "My external investments were not imported properly.": "Please contact us. We will resolve this issue as soon as possible.",
         "My external SIP was not automatically imported.": "External SIP cannot be imported. When you import a SIP on Groww, make sure you\ncancel the old SIP and start a new SIP in the same fund on Groww.",
@@ -113,7 +113,7 @@
         "NFO was called off. When do I get my money back?": "In case of a cancelled NFO, the amount will be refunded back within 7 bank\nworking days.\n\nIf it has been more than 7 working days, please contact us.",
         "What is NFO?": "NFO stands for New Fund Offer. It is basically a new mutual fund. Every mutual\nfund starts its life as an NFO. There is a subscription period during which\ninvestors can invest in the NFO. Usually, a week after the closing of the NFO\nsubscription, the NFO becomes a mutual fund open to investment for all."
     },
-    "stocks": {
+    "Stocks": {
         "How will off market transactions show up in my holding?": "Off market transactions will show up in your holdings after it reflects in\nyour demat account. It takes 2 working days after the transaction date to show\nup (T+2). Please raise a ticket if it has been more than 2 days.",
         "When will corporate action reflect in my holdings?": "It will reflect on the execution date. After the delivery date it will start\nreflecting in your holdings.",
         "Why are some of my shares locked?": "Your shares might be locked due to any one of the following reasons: - You may\nhave pledged your shares, hence you are not allowed to sell the order.\n\nIf you are sure this isn't the case, please raise a ticket by pressing the\nbutton below.",
@@ -148,7 +148,7 @@
         "Is there any rule for limit price of an order?": "As per exchange guidelines, you can buy or sell a stock within a certain\nrange. This range is displayed to you when you're placing a buy or sell limit\norder.",
         "When will I get the money after selling stocks?": "As per SEBI guidelines, the money will get credited to your Groww Balance 2\nworking days after your transaction (T+2 days)."
     },
-    "kyc":{
+    "KYC":{
         "How can I get my full KYC done?": "You can get your full KYC done by uploading the required documents. Your full\nKYC will be done along with your first investment. Tap on 'Upload Docs'.",
         "How long will it take for my KYC to be done?": "You are investment ready! Your KYC will be processed within 1 working day\nafter your first investment. Explore all mutual funds and stocks using the\nbutton below.",
         "How to change my name in Groww and KYC?": "You can send us an email using the button below. It will take 21 working days\nto complete the procedure. During this period, you will not be able to make\nfresh investments (purchase or redeem).",
@@ -163,7 +163,7 @@
         "Why did my fixed deposit investment fail?": "Your fixed deposit investment may fail due to:\n\n-incorrect/mismatched data in the KYC documents submitted resulting in KYC rejection\n-payment issues while booking the fixed deposit\n\nPlease re-upload your documents or retry making the payment.\n\nIf this is a recurring issue, please raise a ticket. We'll resolve this issue as soon as possible. ",
         "What is the eligibility criteria for buying Digital Gold on Groww?": "Any resident Indian with verified KYC is eligible for purchasing Digital Gold\non Groww."
     },
-    "orders":{
+    "Orders":{
         "My order is still not completed. ": "It usually takes 3-4 bank working days for a mutual fund order to complete.\n\nIn case of liquid funds, it takes 1-2 bank working days.\n\nIf it has already been more than 3-4 working days, you can raise a ticket.\n\nPlease go to 'MY ORDERS', select the incomplete order, and select 'Need Help'.\n\nAmong the questions visible, choose the appropriate question.\n\nIf none of the questions resolve your issue, you can raise a ticket.",
         "My fixed deposit order failed. When will I get the refund?": "You will receive the refund amount in your bank account within 5-7 working days.",
         "How much time does it take to open a fixed deposit?": "Opening a fixed deposit is subject to KYC verification. \n\nUsually, it gets verified the same day as the payment or the next working day.",

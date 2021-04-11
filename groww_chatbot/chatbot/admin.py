@@ -1,4 +1,6 @@
 from django.contrib import admin
-from .models import FAQs
+from .models import FAQ, Category, CategoryMap
 # Register your models here.
-admin.site.register(FAQs)
+admin.site.register(FAQ)
+admin.site.register(Category)
+admin.site.register(CategoryMap)

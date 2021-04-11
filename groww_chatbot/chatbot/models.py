@@ -1,14 +1,31 @@
 from django.db import models
 
+# categories = [
+#     ('ST',"Stocks"),
+#     ('MF',"Mutual funds"),
+#     ('GO',"gold"),
+#     ('FD',"Fixed Deposits"),
+#     ('AC',"Account"),
+#     ('OR','Orders'),
+#     ('KYC','KYC'),
+#     ('LI','Logged In')
+# ]
+
 # # Create your models here.
-class FAQs(models.Model):
+class FAQ(models.Model):
     question = models.CharField(max_length = 500)
     answer = models.CharField(max_length = 600)
-    list_of_category = [
-        ('Stk',"Stocks"),
-        ('mf',"Mutual-funds"),
-        ('gd',"gold"),
-        ('fd',"Fix-Deposits"),
-        ('profile',"Profile")
-    ]
-    category = models.CharField( choices = list_of_category, max_length=50)
+    usedFotBot = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.question
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+class CategoryMap(models.Model):
+    question = models.ForeignKey(FAQ, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
