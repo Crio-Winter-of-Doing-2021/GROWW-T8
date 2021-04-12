@@ -6,10 +6,13 @@ from django.http import JsonResponse
 from chatterbot import ChatBot
 from chatterbot.ext.django_chatterbot import settings
 from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
+from rest_framework.views import APIView
+from rest_framework import permissions
 import requests
 from .models import FAQ,Category,CategoryMap
 from .tree import getQuestions
 from orders.models import Product
+from rest_framework.renderers import JSONRenderer
 
 class ResetDatabase(View):
     def get(self, request, *args, **kwargs):
@@ -138,3 +141,61 @@ class ChatterBotApiView(View):
 
 def random(request):
     return render(request,'chatbot/chatbot.html')
+
+class AdminView(View):
+	def get(self,request):
+		return render(request,'accounts/faq.html')
+
+class GetData(APIView):
+    permission_classes = [permissions.AllowAny]
+    renderer_classes = [JSONRenderer]
+    
+    def get(self, request):
+        print("API Called")
+        rtype = request.GET.get('rtype',1)
+        category_id = request.GET.get('category_id')
+        if rtype == 1 or rtype == '1':
+            data = Category.objects.all().values()
+            print('Here')
+            return JsonResponse({
+                'categories': list(data)
+            })
+        elif rtype == 2:
+            c = Category.objects.get(id=category_id)
+            data = FAQ.objects.filter(category=c).values()
+            return JsonResponse({
+                'data' : list(data)
+            })
+    
+    def post(self, request):
+        try:
+            question = request.POST.get('question')
+            answer = request.POST.get('answer')
+
+            obj = FAQ(question=question, answer=answer)
+            obj.save()
+            return JsonResponse({
+                'success': True
+            })
+        except:
+            return JsonResponse({
+                'success': False
+            })
+    
+    def patch(self, request):
+        try:
+            request.POST.data('id')
+            question = request.POST.get('question')
+            answer = request.POST.get('answer')
+
+            obj = FAQ.objects.get(id=id)
+            obj.question = question
+            obj.answer = answer
+            
+            return JsonResponse({
+                'success': True
+            })
+        except:
+            return JsonResponse({
+                'success': False
+            })

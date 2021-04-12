@@ -27,9 +27,6 @@
         <label for="category" class="form-label">Select the Category</label>
         <select id="category" class="form-select" aria-label="Default select example">
             <option selected></option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
         </select>
     </div>
     <button type="button" id="add" class="btn btn-info">Add a Question</button>
@@ -91,5 +88,32 @@
         });
     </script>
 </body>
+
+<script>
+    $(document).ready(function(){
+        console.log('Function Called');
+        $.ajax({
+            type: "GET",
+			url: '/chatbot/api/get-data/',
+            data: {
+                'rtype': 1
+            },
+			dataType: 'json',
+			success: function(response){
+                console.log(response);
+                for( let i=0; i<response.categories.length; i++) {
+                    let val = response.categories[i];
+                    let option = document.createElement("option");
+                    option.value = val.id;
+                    option.textContent = val.name;
+                    $('#category').append(option);
+                }
+            },
+            error: function() {
+                console.log('Error');
+            }
+        });
+    });
+</script>
 
 </html>
