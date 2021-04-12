@@ -192,7 +192,6 @@
         $('#txtinput').show();
         let question = $(this).find(':selected').text();
         $('#editquestiontext').val(question);
-        console.log($(this).find(':selected').text());
         if(data){
             $('#anstxt').val(data.answer);
             $('#usebot').val(data.usedForBot);
