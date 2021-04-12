@@ -18,6 +18,9 @@
         #form2{
             display: none;
         }
+        #txtinput{
+            display: none;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -32,6 +35,7 @@
     <button type="button" id="add" class="btn btn-info">Add a Question</button>
     <button type="button" id = "modify" class="btn btn-warning">Modify</button>
     <form action="" id="form1">
+        {% csrf_token %}
         <div class="mb-3">
             <label for="newquestiontxt" class="form-label">Enter the Question</label>
             <input type="text" class="form-control" id="newquestiontxt">
@@ -49,7 +53,7 @@
             <label class="form-check-label" for="newislogin">ForLoggedIn</label>
         </div>
 
-        <button type="submit" class="btn btn-success">Submit</button>
+        <button id="addques" type="submit" class="btn btn-success">Submit</button>
     </form>
     <form action="" id="form2">
         <div class="mb-3">
@@ -57,6 +61,10 @@
             <select id="questiontxt" class="form-select" aria-label="Default select example">
                 <option></option>
             </select>    
+        </div>
+        <div class="mb-3" id="txtinput">
+            <label for="editquestiontext" class="form-label">Edit the selected question</label>
+            <input type="text" class="form-control" id="editquestiontext">
         </div>
         <div class="mb-3">
             <label for="anstxt" class="form-label">The Answer</label>
@@ -109,6 +117,48 @@
         });
     });
 
+    $('#form1').submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            headers: {
+                'X-CSRFTOKEN': '{{ csrf_token }}'
+            },
+            type: 'POST',
+			url: '/chatbot/api/get-data/',
+            data: {
+                question: $('#newquestiontxt').val(),
+                answer: $('#newanstxt').val(),
+                isforbot: $('#newusebot').val(),
+                islogin: $('#newislogin').val(),
+            },
+            success: function(response){
+                console.log(response);
+            }
+        })
+    });
+    $('#form2').submit(function(e){
+        console.log($('#editquestiontext').val());
+        console.log($('#anstxt').val());
+        e.preventDefault();
+        $.ajax({
+            headers: {
+                'X-CSRFTOKEN': '{{ csrf_token }}'
+            },
+            type: 'PATCH',
+			url: '/chatbot/api/get-data/',
+            data: {
+
+                question: $('#editquestiontext').val(),
+                answer: $('#anstxt').val(),
+                isforbot: $('#usebot').val(),
+                islogin: $('#islogin').val(),
+            },
+            success: function(response){
+                console.log("Form2" + response);
+            }
+        })
+    });
+
     $('#category').on('change', function() {
         console.log('Change')
         let id = this.value;
@@ -139,12 +189,15 @@
 
     $('#questiontxt').on('change', function() {
         let data = $(this).find(':selected').data('answer');
+        $('#txtinput').show();
+        let question = $(this).find(':selected').text();
+        $('#editquestiontext').val(question);
+        console.log($(this).find(':selected').text());
         if(data){
             $('#anstxt').val(data.answer);
             $('#usebot').val(data.usedForBot);
         }
     })
-
 
 </script>
 

@@ -171,9 +171,12 @@ class GetData(APIView):
         try:
             question = request.POST.get('question')
             answer = request.POST.get('answer')
-
+            print("Post Question: " + question)
+            print("POST Ans: " + answer)
             obj = FAQ(question=question, answer=answer)
             obj.save()
+
+            # CategoryMap Part
             return JsonResponse({
                 'success': True
             })
@@ -184,10 +187,13 @@ class GetData(APIView):
     
     def patch(self, request):
         try:
-            request.POST.data('id')
+            print(request.data)
+            id = request.POST.data('id')
             question = request.POST.get('question')
             answer = request.POST.get('answer')
-
+            print("PATCH" + id)
+            print("Qusetion" + question)
+            print("Answer" + answer)
             obj = FAQ.objects.get(id=id)
             obj.question = question
             obj.answer = answer
