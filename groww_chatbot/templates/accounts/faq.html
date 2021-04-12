@@ -33,20 +33,20 @@
     <button type="button" id = "modify" class="btn btn-warning">Modify</button>
     <form action="" id="form1">
         <div class="mb-3">
-            <label for="questiontxt" class="form-label">Enter the Question</label>
-            <input type="text" class="form-control" id="questiontxt">
+            <label for="newquestiontxt" class="form-label">Enter the Question</label>
+            <input type="text" class="form-control" id="newquestiontxt">
         </div>
         <div class="mb-3">
-            <label for="anstxt" class="form-label">Enter the Answer</label>
-            <input type="text" class="form-control" id="anstxt">
+            <label for="newanstxt" class="form-label">Enter the Answer</label>
+            <input type="text" class="form-control" id="newanstxt">
         </div>
         <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="usebot">
-            <label class="form-check-label" for="usebot">UseForBot</label>
+            <input type="checkbox" class="form-check-input" id="newusebot">
+            <label class="form-check-label" for="newusebot">UseForBot</label>
         </div>
         <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="islogin">
-            <label class="form-check-label" for="islogin">ForLoggedIn</label>
+            <input type="checkbox" class="form-check-input" id="newislogin">
+            <label class="form-check-label" for="newislogin">ForLoggedIn</label>
         </div>
 
         <button type="submit" class="btn btn-success">Submit</button>
@@ -55,10 +55,7 @@
         <div class="mb-3">
             <label for="questiontxt" class="form-label">Select the question</label>
             <select id="questiontxt" class="form-select" aria-label="Default select example">
-                <option selected></option>
-                <option value="1">Questino1</option>
-                <option value="2">Question2</option>
-                <option value="3">Question3</option>
+                <option></option>
             </select>    
         </div>
         <div class="mb-3">
@@ -108,12 +105,47 @@
                     option.textContent = val.name;
                     $('#category').append(option);
                 }
-            },
-            error: function() {
-                console.log('Error');
             }
         });
     });
+
+    $('#category').on('change', function() {
+        console.log('Change')
+        let id = this.value;
+        console.log(id);
+        $.ajax({
+            type: "GET",
+            url: '/chatbot/api/get-data/',
+            data: {
+                'rtype': 2,
+                'category_id' : id
+            },
+            dataType: 'json',
+            success: function(response){
+                console.log(response);
+                for( let i=0; i<response.data.length; i++) {
+                    let val = response.data[i];
+                    let option = document.createElement("option");
+                    option.id = 'question-'+val.id;
+                    option.value = val.id;
+                    option.textContent = val.question;
+                    option.data_answer = {answer: val.answer, usedForBot: val.usedFotBot};
+                    $('#questiontxt').append(option);
+                    $('#question-'+val.id).data('answer',{answer: val.answer, usedForBot: val.usedFotBot});
+                }
+            }
+        });
+    })
+
+    $('#questiontxt').on('change', function() {
+        let data = $(this).find(':selected').data('answer');
+        if(data){
+            $('#anstxt').val(data.answer);
+            $('#usebot').val(data.usedForBot);
+        }
+    })
+
+
 </script>
 
 </html>

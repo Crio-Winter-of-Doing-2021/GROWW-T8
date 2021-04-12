@@ -156,13 +156,13 @@ class GetData(APIView):
         category_id = request.GET.get('category_id')
         if rtype == 1 or rtype == '1':
             data = Category.objects.all().values()
-            print('Here')
             return JsonResponse({
                 'categories': list(data)
             })
-        elif rtype == 2:
+        elif rtype == 2 or rtype == '2':
             c = Category.objects.get(id=category_id)
-            data = FAQ.objects.filter(category=c).values()
+            ids = list(CategoryMap.objects.filter(category=c).values_list('question__id',flat=True))
+            data = FAQ.objects.filter(id__in=ids).values()
             return JsonResponse({
                 'data' : list(data)
             })
