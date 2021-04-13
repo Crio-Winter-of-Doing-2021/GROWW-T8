@@ -112,7 +112,10 @@ class ChatterBotApiView(View):
             print(category)
             c = Category.objects.get(name=category)
         except:
-            c = Category.objects.get(name='stocks')
+            if 'profile' in path:
+                c = Category.objects.get(name='account')
+            else:    
+                c = Category.objects.get(name='stocks')
         data = CategoryMap.objects.filter(category=c).values_list('question',flat=True)
         buttons = list(FAQ.objects.filter(id__in=data).order_by('?').values_list('question',flat=True)[:4])
         # buttons = getQuestions(path)
