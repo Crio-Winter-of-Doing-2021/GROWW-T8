@@ -126,19 +126,19 @@
             type: 'POST',
 			url: '/chatbot/api/get-data/',
             data: {
+                category: $('#category').val(),
                 question: $('#newquestiontxt').val(),
                 answer: $('#newanstxt').val(),
                 isforbot: $('#newusebot').val(),
                 islogin: $('#newislogin').val(),
             },
+            dataType: 'json',
             success: function(response){
                 console.log(response);
             }
         })
     });
     $('#form2').submit(function(e){
-        console.log($('#editquestiontext').val());
-        console.log($('#anstxt').val());
         e.preventDefault();
         $.ajax({
             headers: {
@@ -147,14 +147,14 @@
             type: 'PATCH',
 			url: '/chatbot/api/get-data/',
             data: {
-
+                id: document.getElementById('questiontxt').value,
                 question: $('#editquestiontext').val(),
                 answer: $('#anstxt').val(),
                 isforbot: $('#usebot').val(),
                 islogin: $('#islogin').val(),
             },
             success: function(response){
-                console.log("Form2" + response);
+                console.log(response);
             }
         })
     });
@@ -163,6 +163,11 @@
         console.log('Chang')
         let id = this.value;
         console.log(id);
+        $('#questiontxt').empty();
+        $('#questiontxt').append('<option></option>');
+        $('#anstxt').val('');
+        $('#usebot').val(false);
+        $('#editquestiontext').val('');
         $.ajax({
             type: "GET",
             url: '/chatbot/api/get-data/',
@@ -195,6 +200,10 @@
         if(data){
             $('#anstxt').val(data.answer);
             $('#usebot').val(data.usedForBot);
+        }
+        else{
+            $('#anstxt').val('');
+            $('#usebot').val(false);
         }
     })
 

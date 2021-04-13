@@ -171,10 +171,24 @@ class GetData(APIView):
         try:
             question = request.POST.get('question')
             answer = request.POST.get('answer')
-            print("Post Question: " + question)
-            print("POST Answer: " + answer)
+            isforbot = request.POST.get('isforbot')
+            islogin = request.POST.get('islogin')
+            category = request.POST.get('category')
+            print("Post Question: ",question)
+            print("POST Answer: ",answer)
+            print('POST isforbot:',isforbot)
+            print('POST islgin:',islogin)
+            print('POST category:',category)
             obj = FAQ(question=question, answer=answer)
             obj.save()
+
+            obj2 = Category.objects.get(id=category)
+            CategoryMap(question=obj,category=obj2).save()
+
+            # if islogin:
+            #     obj2 = Category.objects.get(name='Logged In')
+            #     CategoryMap(question=obj.id,category=obj2.id).save()
+
 
             # CategoryMap Part
             return JsonResponse({
@@ -187,17 +201,16 @@ class GetData(APIView):
     
     def patch(self, request):
         try:
-            print(request.data)
-            id = request.POST.data('id')
-            question = request.POST.get('question')
-            answer = request.POST.get('answer')
-            print("PATCH Id" + id)
-            print("Qusetion" + question)
-            print("Answer" + answer)
+            id = int(request.data.get('id'))
+            question = request.data.get('question')
+            answer = request.data.get('answer')
+            print("PATCH Id",id)
+            print("Qusetion",question)
+            print("Answer",answer)
             obj = FAQ.objects.get(id=id)
             obj.question = question
             obj.answer = answer
-            
+            obj.save()
             return JsonResponse({
                 'success': True
             })
