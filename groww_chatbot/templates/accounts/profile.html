@@ -6,10 +6,45 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	</head>
 	<body>
-		<h1>Profile </h1>
-		<ul id="profileid"></ul>
-	</body>
+		<nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="https://groww.in/logo-groww270.png" alt=""
+                        width="30" height="30" class="d-inline-block align-top">
+                    <b>Groww</b>
+                </a>
+                <a class="nav-link" href="/explore/stocks">Explore</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">
+                    <button class="btn btn-primary" type="submit">Logout</button>
+                </a>
+                {% else %}
+                <a href="{% url 'register' %}">             
+                    <button class="btn" type="submit">Login/Register</button>
+                </a>
+                {% endif %}
+            </div>
+        </nav>
 
+		<div class="jumbotron" style="height: 520px;">
+			<h1 class="display-4">My Profile</h1>
+			<hr class="my-4">
+			<div class="row">
+				<div class="column">
+					<img src="https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png" alt="">
+				</div>
+				<div class="col-sm">
+					<h4 id="name"></h4>
+					<h4 id="dob"></h4>
+					<h4 id="kycstatus"> </h4>	
+				</div>
+			</div>
+			<br>
+			<p class="lead">
+			  <a class="btn btn-primary btn-lg" href="" role="button">See My Orders</a>
+			</p>
+		</div>
+	</body>
 <script>
 	$(document).ready(function(){
 		$.ajax({
@@ -17,19 +52,12 @@
 			url: '/profile/api/{{id}}',
 			dataType: 'json',
 			success: function(response){
-				let profileid = document.getElementById('profileid');
-				let id = document.createElement('li');
-				let name = document.createElement("li");
-				let dob = document.createElement("li");
-				let kyc = document.createElement("li");
-				id.textContent = 'Id : '+response.id;
-				name.textContent = 'Name : '+response.name;
-				dob.textContent = 'DOB: : '+response.dob;
-				kyc.textContent = 'Kyc : '+response.kyc;
-				profileid.appendChild(id);
-				profileid.appendChild(name);
-				profileid.appendChild(dob);
-				profileid.appendChild(kyc);
+				let name = document.getElementById("name");
+				let dob = document.getElementById("dob");
+				let kyc = document.getElementById("kycstatus");
+				name.textContent = 'Name: '+response.name;
+				dob.textContent = 'Dob: '+response.dob;
+				kyc.textContent = 'Kyc Status: '+response.kyc;
 			}
 		});
 	});
