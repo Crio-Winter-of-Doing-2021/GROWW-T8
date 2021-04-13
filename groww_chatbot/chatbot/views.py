@@ -147,7 +147,7 @@ class ChatterBotApiView(View):
         Return data corresponding to the current conversation.
         """
         # train(chatterbot)  
-
+        chatterbot.storage.drop()
         trainer = ListTrainer(chatterbot)
         trainer.train(['I have a question',"I'm here to help, you can ask me anything!"])
         trainer.train(['Thanks',"I'm glad I could help &#128516;"])
