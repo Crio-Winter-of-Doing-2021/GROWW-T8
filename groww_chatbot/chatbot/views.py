@@ -1,4 +1,5 @@
 import json
+import chatterbot
 from django.views.generic.base import TemplateView
 from django.views.generic import View
 from django.shortcuts import render,redirect
@@ -10,9 +11,14 @@ from rest_framework.views import APIView
 from rest_framework import permissions
 import requests
 from .models import FAQ,Category,CategoryMap
-from .tree import getQuestions
 from orders.models import Product
 from rest_framework.renderers import JSONRenderer
+
+chatterbot = ChatBot(**settings.CHATTERBOT)
+
+def train_chatbot(q,a):
+    trainer = ListTrainer(chatterbot)
+    trainer.train([q,a])
 
 class ResetDatabase(View):
     def get(self, request, *args, **kwargs):
@@ -20,8 +26,8 @@ class ResetDatabase(View):
         
         ## Add categories
         Category.objects.all().delete()
-
-        categories = ['Stocks','Mutual Funds','Gold','FD','Account','Orders','KYC','Logged In']
+        
+        categories = ['stocks','mutual-funds','gold','fd','account','orders','kyc','logged-in']
         f = 1
         for c in categories:
             obj = Category(name=c)
@@ -32,10 +38,11 @@ class ResetDatabase(View):
         FAQ.objects.all().delete()
         count = 1
         path = '../Json Files/final.json'
+        
         with open(path,'r') as f:
             data = json.load(f)
             for category, values in data.items():
-                if category == 'Orders' or category =='KYC':
+                if category == 'orders' or category =='kyc':
                     f = True
                 else:
                     f = False
@@ -49,7 +56,7 @@ class ResetDatabase(View):
                     obj2 = CategoryMap(question=obj,category=Category.objects.get(name=category))
                     obj2.save()
                     if f:
-                        obj2 = CategoryMap(question=obj,category=Category.objects.get(name='Logged In'))
+                        obj2 = CategoryMap(question=obj,category=Category.objects.get(name='logged-in'))
                         obj2.save()
                     print('Count : {}'.format(count),end='\r')
                     count += 1
@@ -78,29 +85,12 @@ class ResetDatabase(View):
 class ChatterBotAppView(TemplateView):
     template_name = 'chatbot/chatbot.html'
 
-category = ['stocks','fd','mutual-fund','gold']
 class ChatterBotApiView(View):
     """
     Provide an API endpoint to interact with ChatterBot.
     """
     buttons = []
-    chatterbot = ChatBot(**settings.CHATTERBOT)
-    # # train(chatterbot)
-    # trainer = ChatterBotCorpusTrainer(chatterbot)
-    # trainer.train("chatterbot.corpus.english")        
-    # trainer.train("chatterbot.corpus.english.greetings")     
-
-    # trainer = ListTrainer(chatterbot)
-    # path = '../Json Files/final.json'
-    # with open(path,'r') as f:
-    #     data = json.load(f)
-    #     for category, values in data.items():
-    #         for question, answer in values.items():
-    #             trainer.train([question,answer])
-    # trainer.train(['I have a question',"I'm here to help, you can ask me anything!"])
-    # trainer.train(['Thanks',"I'm glad I could help &#128516;"])
-
-    
+    # chatterbot = ChatBot(**settings.CHATTERBOT)
     def post(self, request, *args, **kwargs):
         """
         Return a response to the statement in the posted data.
@@ -117,25 +107,46 @@ class ChatterBotApiView(View):
                 ]
             }, status=400)
         
-        buttons = getQuestions(path)
+        try:
+            category = path.split('/')[-2]
+            print(category)
+            c = Category.objects.get(name=category)
+        except:
+            c = Category.objects.get(name='stocks')
+        data = CategoryMap.objects.filter(category=c).values_list('question',flat=True)
+        buttons = list(FAQ.objects.filter(id__in=data).order_by('?').values_list('question',flat=True)[:4])
+        # buttons = getQuestions(path)
         # if user == "AnonymousUser":
         #     pass
         # else:
         #     pass
 
-        response = self.chatterbot.get_response(input_data)
+        response = chatterbot.get_response(input_data)
 
         response_data = response.serialize()
 
         return JsonResponse({'response_data': response_data, 'buttons':buttons},  status=200)
         # return JsonResponse({'response_data': response_data},  status=200)
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         """
         Return data corresponding to the current conversation.
         """
+        # train(chatterbot)  
+
+        trainer = ListTrainer(chatterbot)
+        trainer.train(['I have a question',"I'm here to help, you can ask me anything!"])
+        trainer.train(['Thanks',"I'm glad I could help &#128516;"])
+
+        for item in FAQ.objects.all():
+            trainer.train([item.question,item.answer])
+
+        trainer =   ChatterBotCorpusTrainer(chatterbot)
+        # trainer.train("chatterbot.corpus.english")        
+        trainer.train("chatterbot.corpus.english.greetings") 
+
         return JsonResponse({
-            'name': self.chatterbot.name
+            'status': 'trained successfully'
         })
 
 
@@ -191,6 +202,7 @@ class GetData(APIView):
 
 
             # CategoryMap Part
+            train_chatbot(question,answer)
             return JsonResponse({
                 'success': True
             })
