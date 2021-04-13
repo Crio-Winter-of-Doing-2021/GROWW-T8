@@ -12,6 +12,7 @@ from rest_framework import permissions
 import requests
 from .models import FAQ,Category,CategoryMap
 from orders.models import Product
+from accounts.models import Profile
 from rest_framework.renderers import JSONRenderer
 
 chatterbot = ChatBot(**settings.CHATTERBOT)
@@ -115,21 +116,31 @@ class ChatterBotApiView(View):
             if 'profile' in path:
                 c = Category.objects.get(name='account')
             else:    
-                c = Category.objects.get(name='stocks')
-        data = CategoryMap.objects.filter(category=c).values_list('question',flat=True)
-        buttons = list(FAQ.objects.filter(id__in=data).order_by('?').values_list('question',flat=True)[:4])
-        # buttons = getQuestions(path)
-        # if user == "AnonymousUser":
-        #     pass
-        # else:
-        #     pass
+                c = None
+        data = CategoryMap.objects.filter(category=c).values_list('question',flat=True) if c else None
+        loggedIn = CategoryMap.objects.filter(category__name='logged-in').values_list('question',flat=True)
+        buttons2 = None
+        if data:
+            buttons = FAQ.objects.filter(id__in=data)
+        else:
+            buttons = FAQ.objects.all()
 
+        if user != "AnonymousUser":
+            print(user)
+            buttons.exclude(id__in=loggedIn)
+            obj = Profile.objects.get(user__username=user)
+            if not obj.kyc:
+                kyc = CategoryMap.objects.filter(category__name='kyc').values_list('question',flat=True)
+                buttons2 = FAQ.objects.filter(id__in=kyc).order_by('?').values_list('question',flat=True)
+        
+        buttons = list(buttons.order_by('?').values_list('question',flat=True)[:4])
+
+        buttons = buttons2[:2] + buttons[:2] if buttons2 else buttons
         response = chatterbot.get_response(input_data)
 
         response_data = response.serialize()
 
         return JsonResponse({'response_data': response_data, 'buttons':buttons},  status=200)
-        # return JsonResponse({'response_data': response_data},  status=200)
 
     def get(self, request):
         """
