@@ -125,7 +125,7 @@ class ChatterBotApiView(View):
         else:
             buttons = FAQ.objects.all()
 
-        if user != "AnonymousUser":
+        if user != "AnonymousUser" and c and c.name=='account':
             print(user)
             buttons.exclude(id__in=loggedIn)
             obj = Profile.objects.get(user__username=user)
