@@ -30,6 +30,8 @@ Install the dependencies and just start the server.(Then you are ready to run)
 ```sh
 $ cd groww_chatbot 
 $ pip install -r requirements.txt
+$ python manage.py makemigrations
+$ python manage.py migrate
 $ python manage.py runserver
 ```
 
