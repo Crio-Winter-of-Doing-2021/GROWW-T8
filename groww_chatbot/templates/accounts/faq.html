@@ -9,6 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <style>
+        html, body {
+            background-color: #5368FF;
+        }
         label {
             font-weight: 600;
         }
@@ -21,66 +24,80 @@
         #txtinput{
             display: none;
         }
+        h1 {
+            text-align: center;
+            padding-top: 3%;
+            padding-bottom: 3%;
+        }
+        .box {
+            margin: auto;
+            width: 70%;
+            background-color: #00D09C;
+            border-radius: 30px;
+            margin-top: 30px;
+            height: 700px;
+        }
+        .form-box {
+            width: 70%;
+            margin: auto;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <div class="mb-3">
-        <label for="category" class="form-label">Select the Category</label>
-        <select id="category" class="form-select" aria-label="Default select example">
-            <option selected></option>
-        </select>
+    <div class='box'>
+        <h1>Chatbot Admin Panel</h1>
+        <div class='form-box'>
+            <div class="mb-3">
+                <label for="category" class="form-label">Select the Category</label>
+                <select id="category" class="form-select" aria-label="Default select example">
+                    <option selected></option>
+                </select>
+            </div>
+            <button type="button" id="add" class="btn btn-info">Add a Question</button>
+            <button type="button" id = "modify" class="btn btn-warning">Modify</button>
+            <form action="" id="form1">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="newquestiontxt" class="form-label">Enter the Question</label>
+                    <input type="text" class="form-control" id="newquestiontxt">
+                </div>
+                <div class="mb-3">
+                    <label for="newanstxt" class="form-label">Enter the Answer</label>
+                    <input type="text" class="form-control" id="newanstxt">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="newislogin">
+                    <label class="form-check-label" for="newislogin">ForLoggedIn</label>
+                </div>
+
+                <button id="addques" type="submit" class="btn btn-success">Submit</button>
+            </form>
+            <form action="" id="form2">
+                <div class="mb-3">
+                    <label for="questiontxt" class="form-label">Select the question</label>
+                    <select id="questiontxt" class="form-select" aria-label="Default select example">
+                        <option></option>
+                    </select>    
+                </div>
+                <div class="mb-3" id="txtinput">
+                    <label for="editquestiontext" class="form-label">Edit the selected question</label>
+                    <input type="text" class="form-control" id="editquestiontext">
+                </div>
+                <div class="mb-3">
+                    <label for="anstxt" class="form-label">The Answer</label>
+                    <input type="text" class="form-control" id="anstxt">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="islogin">
+                    <label class="form-check-label" for="islogin">ForLoggedIn</label>
+                </div>
+
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
     </div>
-    <button type="button" id="add" class="btn btn-info">Add a Question</button>
-    <button type="button" id = "modify" class="btn btn-warning">Modify</button>
-    <form action="" id="form1">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="newquestiontxt" class="form-label">Enter the Question</label>
-            <input type="text" class="form-control" id="newquestiontxt">
-        </div>
-        <div class="mb-3">
-            <label for="newanstxt" class="form-label">Enter the Answer</label>
-            <input type="text" class="form-control" id="newanstxt">
-        </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="newusebot">
-            <label class="form-check-label" for="newusebot">UseForBot</label>
-        </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="newislogin">
-            <label class="form-check-label" for="newislogin">ForLoggedIn</label>
-        </div>
-
-        <button id="addques" type="submit" class="btn btn-success">Submit</button>
-    </form>
-    <form action="" id="form2">
-        <div class="mb-3">
-            <label for="questiontxt" class="form-label">Select the question</label>
-            <select id="questiontxt" class="form-select" aria-label="Default select example">
-                <option></option>
-            </select>    
-        </div>
-        <div class="mb-3" id="txtinput">
-            <label for="editquestiontext" class="form-label">Edit the selected question</label>
-            <input type="text" class="form-control" id="editquestiontext">
-        </div>
-        <div class="mb-3">
-            <label for="anstxt" class="form-label">The Answer</label>
-            <input type="text" class="form-control" id="anstxt">
-        </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="usebot">
-            <label class="form-check-label" for="usebot">UseForBot</label>
-        </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="islogin">
-            <label class="form-check-label" for="islogin">ForLoggedIn</label>
-        </div>
-
-        <button type="submit" class="btn btn-success">Submit</button>
-    </form>
 
     <script>
         $("#add").click(function(){
@@ -129,12 +146,12 @@
                 category: $('#category').val(),
                 question: $('#newquestiontxt').val(),
                 answer: $('#newanstxt').val(),
-                isforbot: $('#newusebot').val(),
                 islogin: $('#newislogin').val(),
             },
             dataType: 'json',
             success: function(response){
                 console.log(response);
+                location.reload();
             }
         })
     });
@@ -150,11 +167,11 @@
                 id: document.getElementById('questiontxt').value,
                 question: $('#editquestiontext').val(),
                 answer: $('#anstxt').val(),
-                isforbot: $('#usebot').val(),
                 islogin: $('#islogin').val(),
             },
             success: function(response){
                 console.log(response);
+                location.reload();
             }
         })
     });
@@ -166,7 +183,6 @@
         $('#questiontxt').empty();
         $('#questiontxt').append('<option></option>');
         $('#anstxt').val('');
-        $('#usebot').val(false);
         $('#editquestiontext').val('');
         $.ajax({
             type: "GET",
@@ -199,11 +215,9 @@
         $('#editquestiontext').val(question);
         if(data){
             $('#anstxt').val(data.answer);
-            $('#usebot').val(data.usedForBot);
         }
         else{
             $('#anstxt').val('');
-            $('#usebot').val(false);
         }
     })
 
