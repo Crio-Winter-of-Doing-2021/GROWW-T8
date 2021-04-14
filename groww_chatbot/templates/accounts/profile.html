@@ -55,8 +55,20 @@
 				let name = document.getElementById("name");
 				let dob = document.getElementById("dob");
 				let kyc = document.getElementById("kycstatus");
-				name.textContent = 'Name: '+response.name;
-				dob.textContent = 'Dob: '+response.dob;
+				if(response.name==null){
+					name.textContent = 'Name: '+ 'Not Set Yet';					
+				}
+				else{
+					name.textContent = 'Name: '+response.name;
+				}
+				if(response.dob==null){
+					dob.textContent = 'Dob: '+ 'Not Set Yet';
+
+				}
+				else{
+					dob.textContent = 'Dob: '+response.dob;
+
+				}
 				kyc.textContent = 'Kyc Status: '+response.kyc;
 			}
 		});
