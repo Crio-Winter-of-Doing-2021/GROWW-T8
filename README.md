@@ -21,7 +21,7 @@ Team ID: GROWW-T8 | Team Members: Pranjal Goyal &amp; Abhishek Thakur
 ### Live Demo (Please Give it few seconds to load the gif 😀)
 ![](livedemo.gif)
 
-
+### More About Demo
 This is a short gif to show how it is working, as you show when I moved to stocks page it asked me questions related to stocks. Similarly based on page context it will show the questions and also users can register, in that user context will also be used.
 
 The UI is simple, will improve it but the chatbot functionality was the main focus.
